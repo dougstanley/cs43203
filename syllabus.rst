@@ -37,9 +37,9 @@ My Interpretation
 We will be looking at various low level C api's, mostly the ones implemented
 as part of the POSIX standard. Along the way, we will be covering topics past
 the beginner level of C. We will be using popular "system" programs and looking
-at their code to see what makes them tick. For example, ever wonder how the
-unix command more (or less) works? Ever wonder how ls, cp, mv, etc work? Ever
-wonder how webserver or database server software works?
+at their code to see how they work. For example, we will examine how popular
+unix tools like more, cp, ls, cat, etc work. We will also, look into how
+network servers like webservers can process thousands of requests simultaneously.
 
 Prerequisites:
 --------------
@@ -51,7 +51,7 @@ Course Goals/Objectives
 =======================
 
 This course is programming heavy. Students are expected to know core programming
-concepts, and be familiar with a typed programming language (preferably C or 
+concepts, and be familiar with a typed programming language (preferably C or
 C++).
 
 

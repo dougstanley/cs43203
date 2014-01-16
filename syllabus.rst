@@ -15,11 +15,11 @@ CS 4/53203 Sec 001 Spring 2014
 :Office: SRL 032
 :Office Hours: Wednesdays 4:00pm - 5:00pm  or by appointment
 :Phone: 20021 
-:Location: MSB 162
+:Location: MSB 120
 :Time: W 5:30 PM - 8:15 PM
 :Syllabus: https://github.com/dougstanley/cs43203
-:Version: 1.0
-:Modified: 1/14/2014
+:Version: 1.1
+:Modified: 1/15/2014
 
 Course Description:
 ===================

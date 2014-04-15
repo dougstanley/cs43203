@@ -123,13 +123,20 @@ function testoutput2 {
     fi
 }
 
-function checknoargs {
+function checkbadargs {
     ERROR=0
     $BINARY  >> $LOGFILE 2>&1
     STATUS=$?
     if [ $STATUS -eq 0 ];then
         log "Your program didn't fail when no arguments were given!"
         ERROR=1
+        ERRORCOUNT=$(( $ERRORCOUNT + 1 ))
+    fi
+    $BINARY /tmp /tmp >> $LOGFILE 2>&1
+    STATUS=$?
+    if [ $STATUS -eq 0 ];then
+        log "Your program didn't fail when to many arguments were given!"
+        ERROR=2
         ERRORCOUNT=$(( $ERRORCOUNT + 1 ))
     fi
     return $ERROR
@@ -148,7 +155,7 @@ function checkbaddir {
 }
 
 runtest compile "Compile source code."
-runtest checknoargs "Checking if code fails with no args."
+runtest checkbadargs "Checking if code fails with wrong args."
 runtest checkbaddir "Checking if code fails if non-dir given."
 runtest testoutput1 "Testing output part 1"
 runtest testoutput2 "Testing output part 2"

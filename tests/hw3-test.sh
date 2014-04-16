@@ -2,6 +2,10 @@
 
 export CFILE=$1
 
+if [ ! -f "$CFILE" ]; then
+    echo "$CFILE doesn't exit. Please provide a path to your homework #3 code!"
+    exit 1
+fi
 TMPWORKDIR=$(mktemp -d /tmp/hw3-test.XXXX)
 export TMPWORKDIR
 if [ ! -d $TMPWORKDIR ]; then
@@ -91,7 +95,7 @@ function testoutput1 {
     TMPDIR1=$(mktemp -d "$TMPWORKDIR/tar.XXXX")
     mktestdir1 $TMPDIR1
 
-    ORIGMD5=$(find $TMPDIR1 -type f|xargs cat|md5sum|awk '{print $1}')
+    ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
     TESTMD5=$($BINARY $TMPDIR1|md5sum|awk '{print $1}')
     STATUS=$?
     if [ $STATUS -ne 0 ];then
@@ -110,7 +114,7 @@ function testoutput2 {
         genrandout > $(mktemp "$TMPDIR1/$i.XXXXXX")
     done
 
-    ORIGMD5=$(find $TMPDIR1 -type f|xargs cat|md5sum|awk '{print $1}')
+    ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
     TESTMD5=$($BINARY $TMPDIR1|md5sum|awk '{print $1}')
     STATUS=$?
     if [ $STATUS -ne 0 ];then

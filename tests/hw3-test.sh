@@ -104,25 +104,37 @@ function testoutput1 {
     fi
     if [ "$ORIGMD5" != "$TESTMD5" ]; then
         echo "Failed test 1"
+        log "Failed output test 1, your code produced unexpected output"
+        TMPA=$(mktemp "$TMPDIR1/tmpa.XXXXXX")
+        find $TMPDIR1 -type f -maxdepth 1|xargs cat > $TMPA
+        TMPB=$(mktemp "$TMPDIR1/tmpb.XXXXXX")
+        $BINARY $TMPDIR1 > $TMPB
+        log "$(diff $TMPA $TMPB)"
         return 1
     fi
 }
 
 function testoutput2 {
-    TMPDIR1=$(mktemp -d "$TMPWORKDIR/random.XXXX")
+    TMPDIR2=$(mktemp -d "$TMPWORKDIR/random.XXXX")
     for i in `seq 15`; do
-        genrandout > $(mktemp "$TMPDIR1/$i.XXXXXX")
+        genrandout > $(mktemp "$TMPDIR2/$i.XXXXXX")
     done
 
-    ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
-    TESTMD5=$($BINARY $TMPDIR1|md5sum|awk '{print $1}')
+    ORIGMD5=$(find $TMPDIR2 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
+    TESTMD5=$($BINARY $TMPDIR2|md5sum|awk '{print $1}')
     STATUS=$?
     if [ $STATUS -ne 0 ];then
         log "Failed to get MD5 checksum of output"
         return $STATUS
     fi
     if [ "$ORIGMD5" != "$TESTMD5" ]; then
-        echo "Failed test 1"
+        echo "Failed test 2"
+        log "Failed output test 2, your code produced unexpected output"
+        TMPA=$(mktemp "$TMPDIR2/tmpa.XXXXXX")
+        find $TMPDIR2 -type f -maxdepth 1|xargs cat > $TMPA
+        TMPB=$(mktemp "$TMPDIR2/tmpb.XXXXXX")
+        $BINARY $TMPDIR2 > $TMPB
+        log "$(diff $TMPA $TMPB)"
         return 1
     fi
 }

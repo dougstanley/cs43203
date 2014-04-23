@@ -9,24 +9,24 @@
 #include <stdio.h>
 
 int main(){
-	pid_t p;
-	int i;
+    pid_t p;
+    int i;
 
-	p = fork();	
+    p = fork();    
 
-	printf("Hello\n");
+    printf("Hello\n");
 
-	if( p != 0 ){
-		printf("We\'re waiting...\n");
-		wait(NULL);
-	}else{
-		for( i = 0; i < 5; i++ ){
-			printf("I\'m the child still running\n");
-			sleep(5);
-		}
-	}
+    if( p != 0 ){
+        printf("We\'re waiting...\n");
+        wait(NULL);
+    }else{
+        for( i = 0; i < 5; i++ ){
+            printf("I\'m the child still running\n");
+            sleep(5);
+        }
+    }
 
-	printf("Done %d\n",p);	
+    printf("Done %d\n",p);    
 
-	return 0;
+    return 0;
 }

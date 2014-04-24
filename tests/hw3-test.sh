@@ -2,6 +2,25 @@
 
 export CFILE=$1
 
+#OS Check
+PLATFORM=$(uname -s)
+case $PLATFORM in
+    Linux)
+        MD5="md5sum -b"
+        ;;
+    Darwin)
+        MD5="md5 -q"
+        ;;
+    Cygwin)
+        MD5="md5sum -b"
+        ;;
+    *)
+        echo "Unknown OS! Please submit a bug report!"
+        exit 1
+        ;;
+esac
+export MD5
+
 if [ ! -f "$CFILE" ]; then
     echo "$CFILE doesn't exit. Please provide a path to your homework #3 code!"
     exit 1
@@ -95,8 +114,8 @@ function testoutput1 {
     TMPDIR1=$(mktemp -d "$TMPWORKDIR/tar.XXXX")
     mktestdir1 $TMPDIR1
 
-    ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
-    TESTMD5=$($BINARY $TMPDIR1|md5sum|awk '{print $1}')
+    ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|$MD5)
+    TESTMD5=$($BINARY $TMPDIR1|$MD5)
     STATUS=$?
     if [ $STATUS -ne 0 ];then
         log "Failed to get MD5 checksum of output"
@@ -120,8 +139,8 @@ function testoutput2 {
         genrandout > $(mktemp "$TMPDIR2/$i.XXXXXX")
     done
 
-    ORIGMD5=$(find $TMPDIR2 -type f -maxdepth 1|xargs cat|md5sum|awk '{print $1}')
-    TESTMD5=$($BINARY $TMPDIR2|md5sum|awk '{print $1}')
+    ORIGMD5=$(find $TMPDIR2 -type f -maxdepth 1|xargs cat|$MD5)
+    TESTMD5=$($BINARY $TMPDIR2|$MD5)
     STATUS=$?
     if [ $STATUS -ne 0 ];then
         log "Failed to get MD5 checksum of output"

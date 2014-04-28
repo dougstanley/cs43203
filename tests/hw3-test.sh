@@ -113,6 +113,7 @@ function testoutput1 {
 
     TMPDIR1=$(mktemp -d "$TMPWORKDIR/tar.XXXX")
     mktestdir1 $TMPDIR1
+    
 
     ORIGMD5=$(find $TMPDIR1 -type f -maxdepth 1|xargs cat|$MD5)
     TESTMD5=$($BINARY $TMPDIR1|$MD5)
@@ -124,9 +125,9 @@ function testoutput1 {
     if [ "$ORIGMD5" != "$TESTMD5" ]; then
         echo "Failed test 1"
         log "Failed output test 1, your code produced unexpected output"
-        TMPA=$(mktemp "$TMPDIR1/tmpa.XXXXXX")
+        TMPA=$(mktemp "$TMPWORKDIR/test1_correct_output.XXXXXX")
         find $TMPDIR1 -type f -maxdepth 1|xargs cat > $TMPA
-        TMPB=$(mktemp "$TMPDIR1/tmpb.XXXXXX")
+        TMPB=$(mktemp "$TMPWORKDIR/test1_user_output.XXXXXX")
         $BINARY $TMPDIR1 > $TMPB
         log "$(diff $TMPA $TMPB)"
         return 1
@@ -149,9 +150,9 @@ function testoutput2 {
     if [ "$ORIGMD5" != "$TESTMD5" ]; then
         echo "Failed test 2"
         log "Failed output test 2, your code produced unexpected output"
-        TMPA=$(mktemp "$TMPDIR2/tmpa.XXXXXX")
+        TMPA=$(mktemp "$TMPWORKDIR/test2_correct_out.XXXXXX")
         find $TMPDIR2 -type f -maxdepth 1|xargs cat > $TMPA
-        TMPB=$(mktemp "$TMPDIR2/tmpb.XXXXXX")
+        TMPB=$(mktemp "$TMPWORKDIR/test2_student_out.XXXXXX")
         $BINARY $TMPDIR2 > $TMPB
         log "$(diff $TMPA $TMPB)"
         return 1

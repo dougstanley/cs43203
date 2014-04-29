@@ -18,8 +18,8 @@ CS 4/53203 Sec 001 Spring 2014
 :Location: MSB 120
 :Time: W 5:30 PM - 8:15 PM
 :Syllabus: https://github.com/dougstanley/cs43203
-:Version: 1.1
-:Modified: 1/15/2014
+:Version: 1.2
+:Modified: 4/29/2014
 
 Course Description:
 ===================
@@ -130,9 +130,7 @@ Grades:
 +=================================+================+
 | Homeworks / Projects            | 75%            |
 +---------------------------------+----------------+
-| Final Project                   | 15%            |
-+---------------------------------+----------------+
-| Written Final Exam              | 10%            |
+| Final Project                   | 25%            |
 +---------------------------------+----------------+
 | \*\*Attitude and Attendance     | \*             |
 +---------------------------------+----------------+

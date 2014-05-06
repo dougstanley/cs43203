@@ -109,7 +109,7 @@ int main(int argc, char *argv[]){
 
     /* Now that we have our mask, lets block those signals.
      */
-    sigprocmask(SIG_BLOCK, &proccess_mask, NULL);
+    sigprocmask(SIG_SETMASK, &proccess_mask, NULL);
 
     /* Infinite loop while we wait
      * for signals.
